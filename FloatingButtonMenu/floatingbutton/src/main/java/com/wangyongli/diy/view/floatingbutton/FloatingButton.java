@@ -26,10 +26,10 @@ public class FloatingButton implements View.OnClickListener{
     private AnimatorSet openAnimator, closeAnimator;
     private List<Animator> openAnimators;
     private List<Animator> closeAnimators;
-    private List<Integer> itemIcons;
     private Activity activity;
     private int itemCount = 0;
-    FrameLayout.LayoutParams layoutParams;
+    private FrameLayout.LayoutParams layoutParams;
+    private List<View> itemButtons = new ArrayList<>();
     private FloatingButton(Activity activity){
         if (activity == null) throw new IllegalArgumentException("activity don't must be null");
         this.activity = activity;
@@ -52,6 +52,7 @@ public class FloatingButton implements View.OnClickListener{
 
     public FloatingButton addItemVeiw(int viewId, int drawableId, View.OnClickListener onClickListener){
         ImageView imageView = new ImageView(activity);
+        itemButtons.add(imageView);
         imageView.setId(viewId);
         imageView.setImageResource(drawableId);
         imageView.setOnClickListener(onClickListener);
@@ -113,6 +114,19 @@ public class FloatingButton implements View.OnClickListener{
 
     public static FloatingButton newInstance(Activity activity){
         return new FloatingButton(activity);
+    }
+
+    private void setItemButtonsVisibility(int isView){
+        for (View view : itemButtons){
+            view.setVisibility(isView);
+        }
+    }
+
+    public void setVisibility(int visibility){
+        if (floatingButton.getVisibility() == visibility) return;
+        if (isOpen) close();
+        setItemButtonsVisibility(visibility);
+        floatingButton.setVisibility(visibility);
     }
 
 }

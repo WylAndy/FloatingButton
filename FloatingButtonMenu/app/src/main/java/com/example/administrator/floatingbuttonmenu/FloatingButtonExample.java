@@ -5,24 +5,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.wangyongli.diy.view.floatingbutton.FloatingButton;
 
 public class FloatingButtonExample extends AppCompatActivity implements View.OnClickListener {
 
-    private boolean isOpen = false;
-
+    private boolean isShow = false;
+    private FloatingButton floatingButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_floating_button_example);
+        ImageView menuButton = (ImageView) findViewById(R.id.menu_Button);
 
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(100, 100);
         layoutParams.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
         layoutParams.rightMargin = 20;
-
-        FloatingButton.newInstance(this)
+        floatingButton = FloatingButton.newInstance(this);
+        floatingButton
                 .setFloatingButtonLayout(layoutParams)
                 .addItemVeiw(0, R.drawable.menu_button, this)
                 .addItemVeiw(1, R.drawable.menu_button, this)
@@ -33,6 +35,13 @@ public class FloatingButtonExample extends AppCompatActivity implements View.OnC
                 .addItemVeiw(6, R.drawable.menu_button, this)
                 .addFloatingButtonView(R.drawable.floating_button)
                 .build();
+        findViewById(R.id.floating_Button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingButton.setVisibility(isShow ? View.VISIBLE : View.GONE);
+                isShow = !isShow;
+            }
+        });
     }
 
     @Override
