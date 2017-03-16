@@ -12,6 +12,7 @@ import com.wangyongli.diy.view.floatingbutton.FloatingButton;
 
 public class FloatingButtonExample extends AppCompatActivity implements View.OnClickListener {
 
+
     private boolean isShow = false;
     private FloatingButton floatingButton;
     @Override
